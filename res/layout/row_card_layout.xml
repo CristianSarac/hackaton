@@ -1,0 +1,10 @@
+
+ <it.gmariotti.cardslib.library.view.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/list_cardId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/card.main_layout.kitkat"
+        card:card_layout_resourceID="@layout/card_overlay_layout"
+        />
