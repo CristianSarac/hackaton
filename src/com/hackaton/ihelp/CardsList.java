@@ -5,61 +5,41 @@ import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.view.CardListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hackaton.ihelp.service.Service;
+
 public class CardsList extends BaseFragment {
+
+	Service service = Service.getInstace();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-
-		View rootView = null;
 		CardListView c = new CardListView(getActivity());
 
-		// inflater.inflate(R.id.myList, container, false);
-
 		int position = getArguments().getInt("position");
+		List<Card> cards = new ArrayList<Card>();
 
-		final ArrayList<Card> cards = new ArrayList<Card>();
-		// Create a Card
-		// for (int i = 0; i < 4; i++) {
-
-		// Card card = new Card(getActivity());
-		// Card card2 = new Card(getActivity());
-
+		if (position == 1)
+		{
+			cards = service.getUserCardsForService("", getActivity());
+		}
 		Card card = new CustomCard(getActivity());
-
-		// CardHeader header = new CardHeader(getActivity());
-		// CardHeader header2 = new CardHeader(getActivity());
-
-		// header.setTitle("titluuuuuuuu" + position);
-		// header2.setTitle("cevaaaaaaaaaaa");
-		// Create thumbnail
-		// CardThumbnail thumb = new CardThumbnail(getActivity());
-
-		// Set resource
-		// thumb.setDrawableResource(R.drawable.ic_launcher);
-
-		// Add thumbnail to a card
-		// card.addCardThumbnail(thumb);
-
-		// card.addCardHeader(header);
-		// card2.addCardHeader(header2);
-
 		cards.add(card);
-		// cards.add(card2);
 
-		// }
 		CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(),
 				cards);
 
-		// c = (CardListView) getActivity().findViewById(R.id.myList);
-		if (c != null) {
+		if (c != null)
+		{
 			c.setAdapter(mCardAdapter);
 		}
 
@@ -67,7 +47,8 @@ public class CardsList extends BaseFragment {
 	}
 
 	@Override
-	public int getTitleResourceId() {
+	public int getTitleResourceId()
+	{
 		return R.id.myList;
 	}
 

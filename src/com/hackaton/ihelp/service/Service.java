@@ -18,10 +18,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.hackaton.ihelp.CustomCard;
 
 public class Service {
 
@@ -29,7 +33,7 @@ public class Service {
 	public static final String TAG_NAME = "Name";
 	public static final String TAG_EMAIL = "Email";
 	// URL
-	public static final String URL = "http://192.168.1.90:44748/AndroidDataHandler.ashx";
+	public static final String URL = "http://192.168.1.93:44748/AndroidCategoriesHandler.ashx";
 	public static final String URL_TEST = "https://prod.api.pvp.net/api/lol/eune/v1.4/summoner/by-name/jap0?api_key=215c4a93-6152-4e55-9e72-e434cd41dcbd";
 
 	private static Service service = null;
@@ -45,10 +49,10 @@ public class Service {
 	{
 	}
 
-	public JSONObject getJsonObject(String request)
+	public JSONArray getJsonObjects(String request)
 	{
-		String url_select = URL_TEST + request;
-
+		String url_select = URL + request;
+		Log.w("WWWWWWWWWWWW", url_select + "QQ");
 		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
 
 		InputStream inputStream = null;
@@ -98,9 +102,10 @@ public class Service {
 			}
 
 			inputStream.close();
-			String result = sBuilder.toString();
+			String jsonString = sBuilder.toString();
 
-			return new JSONObject(result);
+			return new JSONArray(jsonString);
+
 		} catch (Exception e)
 		{
 			Log.e("StringBuilding & BufferedReader", "Error converting result "
@@ -117,36 +122,63 @@ public class Service {
 		return u;
 	}
 
-	public List<User> getUsersForService(String service)
+	public ArrayList<User> getUsersForService(String service)
 	{
-		List<User> users = new ArrayList<User>();
+		ArrayList<User> users = new ArrayList<User>();
 
-		JSONObject json = getJsonObject(service);
+		JSONArray jsonArray = getJsonObjects(service);
 		User u = null;
+
 		try
 		{
-			u = JSONToUser(json);
+			for (int i = 0; i < jsonArray.length(); i++)
+			{
+				JSONObject json = jsonArray.getJSONObject(i);
+				u = JSONToUser(json);
+				users.add(u);
+
+			}
 		} catch (JSONException e)
 		{
 			e.printStackTrace();
 		}
-
-		users.add(u);
-
 		return users;
 	}
 
-	public List<Card> createCardsFromUsers(List<User> users)
+	public List<Card> getUserCardsForService(String service, Context context)
 	{
 		List<Card> cards = new ArrayList<Card>();
-
+		ArrayList<User> users = getUsersForService(service);
 		for (User user : users)
 		{
-			Card card = null;
-			// TODO Create card from user
+			CustomCard card = new CustomCard(context);
+			card.setUser(user);
 			cards.add(card);
 		}
-
 		return cards;
 	}
+
+	public String[] getMainCategories()
+	{
+		String request = "?DataType=MainCategories";
+		JSONArray jsonArray = getJsonObjects(request);
+		String[] mainCategories = new String[jsonArray.length()];
+		mainCategories[0] = "My Profile";
+		try
+		{
+			for (int i = 1; i < jsonArray.length() + 1; i++)
+			{
+				JSONObject json;
+				json = jsonArray.getJSONObject(i);
+				mainCategories[i] = json.getString("Name");
+
+			}
+		} catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return mainCategories;
+
+	}
+
 }

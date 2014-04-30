@@ -8,11 +8,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hackaton.ihelp.service.User;
+
 public class CustomCard extends Card {
 
 	protected TextView mTitle;
 	protected TextView mSecondaryTitle;
 	protected RatingBar mRatingBar;
+	private User user;
 
 	// protected ImageView mImageView;
 
@@ -21,8 +24,15 @@ public class CustomCard extends Card {
 	 * 
 	 * @param context
 	 */
-	public CustomCard(Context context) {
+	public CustomCard(Context context)
+	{
+
 		this(context, R.layout.carddemo_mycard_inner_content);
+	}
+
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 
 	/**
@@ -30,7 +40,8 @@ public class CustomCard extends Card {
 	 * @param context
 	 * @param innerLayout
 	 */
-	public CustomCard(Context context, int innerLayout) {
+	public CustomCard(Context context, int innerLayout)
+	{
 		super(context, innerLayout);
 		init();
 	}
@@ -38,14 +49,16 @@ public class CustomCard extends Card {
 	/**
 	 * Init
 	 */
-	private void init() {
+	private void init()
+	{
 
 		// No Header
 
 		// Set a OnClickListener listener
 		setOnClickListener(new OnCardClickListener() {
 			@Override
-			public void onClick(Card card, View view) {
+			public void onClick(Card card, View view)
+			{
 				Toast.makeText(getContext(), "You clicked the card",
 						Toast.LENGTH_LONG).show();
 			}
@@ -53,7 +66,8 @@ public class CustomCard extends Card {
 	}
 
 	@Override
-	public void setupInnerViewElements(ViewGroup parent, View view) {
+	public void setupInnerViewElements(ViewGroup parent, View view)
+	{
 
 		// Retrieve elements
 		mTitle = (TextView) parent
