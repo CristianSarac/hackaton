@@ -167,19 +167,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int undobar_divider=0x7f02001c;
     }
     public static final class id {
-        public static final int action_example=0x7f0b001e;
-        public static final int action_settings=0x7f0b001d;
+        public static final int action_example=0x7f0b0023;
+        public static final int action_settings=0x7f0b0022;
         public static final int card_content_expand_layout=0x7f0b000e;
-        public static final int card_expand_inner_simple_title=0x7f0b0016;
+        public static final int card_expand_inner_simple_title=0x7f0b001b;
         public static final int card_header_button_expand=0x7f0b0006;
         public static final int card_header_button_frame=0x7f0b0004;
         public static final int card_header_button_other=0x7f0b0007;
         public static final int card_header_button_overflow=0x7f0b0005;
         public static final int card_header_inner_frame=0x7f0b0003;
-        public static final int card_header_inner_simple_title=0x7f0b0017;
+        public static final int card_header_inner_simple_title=0x7f0b001c;
         public static final int card_header_layout=0x7f0b000d;
         public static final int card_main_content_layout=0x7f0b000a;
-        public static final int card_main_inner_simple_title=0x7f0b0018;
+        public static final int card_main_inner_simple_title=0x7f0b001d;
         public static final int card_main_layout=0x7f0b000c;
         public static final int card_overlap=0x7f0b000f;
         public static final int card_shadow_layout=0x7f0b000b;
@@ -189,12 +189,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int card_thumbnail_layout=0x7f0b0011;
         public static final int container=0x7f0b0001;
         public static final int drawer_layout=0x7f0b0000;
-        public static final int list_cardId=0x7f0b0019;
-        public static final int list_card_undobar=0x7f0b001a;
-        public static final int list_card_undobar_button=0x7f0b001c;
-        public static final int list_card_undobar_message=0x7f0b001b;
+        public static final int imageView1=0x7f0b0016;
+        public static final int list_cardId=0x7f0b001e;
+        public static final int list_card_undobar=0x7f0b001f;
+        public static final int list_card_undobar_button=0x7f0b0021;
+        public static final int list_card_undobar_message=0x7f0b0020;
         public static final int myList=0x7f0b0015;
         public static final int navigation_drawer=0x7f0b0002;
+        public static final int ratingBar1=0x7f0b001a;
+        public static final int textView1=0x7f0b0017;
+        public static final int textView2=0x7f0b0018;
+        public static final int textView3=0x7f0b0019;
         public static final int undobar=0x7f0b0012;
         public static final int undobar_button=0x7f0b0014;
         public static final int undobar_message=0x7f0b0013;
@@ -215,13 +220,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int card_undo_layout=0x7f030009;
         public static final int fragment_main=0x7f03000a;
         public static final int fragment_navigation_drawer=0x7f03000b;
-        public static final int inner_base_expand=0x7f03000c;
-        public static final int inner_base_header=0x7f03000d;
-        public static final int inner_base_main=0x7f03000e;
-        public static final int list_card_layout=0x7f03000f;
-        public static final int list_card_thumbnail_layout=0x7f030010;
-        public static final int list_card_undo_message=0x7f030011;
-        public static final int row_card_layout=0x7f030012;
+        public static final int fragment_profile=0x7f03000c;
+        public static final int inner_base_expand=0x7f03000d;
+        public static final int inner_base_header=0x7f03000e;
+        public static final int inner_base_main=0x7f03000f;
+        public static final int list_card_layout=0x7f030010;
+        public static final int list_card_thumbnail_layout=0x7f030011;
+        public static final int list_card_undo_message=0x7f030012;
+        public static final int row_card_layout=0x7f030013;
     }
     public static final class menu {
         public static final int global=0x7f0a0000;
@@ -236,18 +242,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int list_card_undo_items=0x7f080000;
     }
     public static final class string {
-        public static final int action_example=0x7f070007;
-        public static final int action_settings=0x7f070008;
+        public static final int action_example=0x7f070004;
+        public static final int action_settings=0x7f070005;
         public static final int app_name=0x7f070000;
         /**  Undo Controller
          */
         public static final int list_card_undo_title=0x7f070001;
-        public static final int my_card_list=0x7f070009;
-        public static final int navigation_drawer_close=0x7f070006;
-        public static final int navigation_drawer_open=0x7f070005;
-        public static final int title_section1=0x7f070002;
-        public static final int title_section2=0x7f070003;
-        public static final int title_section3=0x7f070004;
+        public static final int my_card_list=0x7f070006;
+        public static final int navigation_drawer_close=0x7f070003;
+        public static final int navigation_drawer_open=0x7f070002;
+        /**  MENU 
+         */
+        public static final int title_my_profile=0x7f070007;
+        public static final int title_section2=0x7f070008;
+        public static final int title_section3=0x7f070009;
     }
     public static final class style {
         /** 
