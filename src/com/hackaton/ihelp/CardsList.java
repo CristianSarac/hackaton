@@ -2,8 +2,6 @@ package com.hackaton.ihelp;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
 
 import java.util.ArrayList;
@@ -31,28 +29,30 @@ public class CardsList extends BaseFragment {
 		// Create a Card
 		// for (int i = 0; i < 4; i++) {
 
-		Card card = new Card(getActivity());
-		Card card2 = new Card(getActivity());
+		// Card card = new Card(getActivity());
+		// Card card2 = new Card(getActivity());
 
-		CardHeader header = new CardHeader(getActivity());
-		CardHeader header2 = new CardHeader(getActivity());
+		Card card = new CustomCard(getActivity());
 
-		header.setTitle("titluuuuuuuu" + position);
-		header2.setTitle("cevaaaaaaaaaaa");
+		// CardHeader header = new CardHeader(getActivity());
+		// CardHeader header2 = new CardHeader(getActivity());
+
+		// header.setTitle("titluuuuuuuu" + position);
+		// header2.setTitle("cevaaaaaaaaaaa");
 		// Create thumbnail
-		CardThumbnail thumb = new CardThumbnail(getActivity());
+		// CardThumbnail thumb = new CardThumbnail(getActivity());
 
 		// Set resource
-		thumb.setDrawableResource(R.drawable.ic_launcher);
+		// thumb.setDrawableResource(R.drawable.ic_launcher);
 
 		// Add thumbnail to a card
-		card.addCardThumbnail(thumb);
+		// card.addCardThumbnail(thumb);
 
-		card.addCardHeader(header);
-		card2.addCardHeader(header2);
+		// card.addCardHeader(header);
+		// card2.addCardHeader(header2);
 
 		cards.add(card);
-		cards.add(card2);
+		// cards.add(card2);
 
 		// }
 		CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(),
