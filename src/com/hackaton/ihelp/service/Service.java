@@ -38,26 +38,22 @@ public class Service {
 
 	private static Service service = null;
 
-	public static Service getInstace()
-	{
+	public static Service getInstace() {
 		if (service == null)
 			service = new Service();
 		return service;
 	}
 
-	private Service()
-	{
+	private Service() {
 	}
 
-	public JSONArray getJsonObjects(String request)
-	{
+	public JSONArray getJsonObjects(String request) {
 		String url_select = URL + request;
 		Log.w("WWWWWWWWWWWW", url_select + "QQ");
 		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
 
 		InputStream inputStream = null;
-		try
-		{
+		try {
 			// Set up HTTP post
 
 			// HttpClient is more then less deprecated. Need to change to
@@ -71,33 +67,27 @@ public class Service {
 
 			// Read content & Log
 			inputStream = httpEntity.getContent();
-		} catch (UnsupportedEncodingException e1)
-		{
+		} catch (UnsupportedEncodingException e1) {
 			Log.e("UnsupportedEncodingException", e1.toString());
 			e1.printStackTrace();
-		} catch (ClientProtocolException e2)
-		{
+		} catch (ClientProtocolException e2) {
 			Log.e("ClientProtocolException", e2.toString());
 			e2.printStackTrace();
-		} catch (IllegalStateException e3)
-		{
+		} catch (IllegalStateException e3) {
 			Log.e("IllegalStateException", e3.toString());
 			e3.printStackTrace();
-		} catch (IOException e4)
-		{
+		} catch (IOException e4) {
 			Log.e("IOException", e4.toString());
 			e4.printStackTrace();
 		}
 		// Convert response to string using String Builder
-		try
-		{
+		try {
 			BufferedReader bReader = new BufferedReader(new InputStreamReader(
 					inputStream, "iso-8859-1"), 8);
 			StringBuilder sBuilder = new StringBuilder();
 
 			String line = null;
-			while ((line = bReader.readLine()) != null)
-			{
+			while ((line = bReader.readLine()) != null) {
 				sBuilder.append(line + "\n");
 			}
 
@@ -106,8 +96,7 @@ public class Service {
 
 			return new JSONArray(jsonString);
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			Log.e("StringBuilding & BufferedReader", "Error converting result "
 					+ e.toString());
 		}
@@ -115,42 +104,37 @@ public class Service {
 		return null;
 	}
 
-	public User JSONToUser(JSONObject json) throws JSONException
-	{
+	public User JSONToUser(JSONObject json) throws JSONException {
 		User u = new User();
-		u.setName(json.getString("name"));
+		u.setName(json.getString("Name"));
+		u.setSurName(json.getString("Surname"));
+		u.setEmail(json.getString("Email"));
 		return u;
 	}
 
-	public ArrayList<User> getUsersForService(String service)
-	{
+	public ArrayList<User> getUsersForService(String service) {
 		ArrayList<User> users = new ArrayList<User>();
 
 		JSONArray jsonArray = getJsonObjects(service);
 		User u = null;
 
-		try
-		{
-			for (int i = 0; i < jsonArray.length(); i++)
-			{
+		try {
+			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject json = jsonArray.getJSONObject(i);
 				u = JSONToUser(json);
 				users.add(u);
 
 			}
-		} catch (JSONException e)
-		{
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return users;
 	}
 
-	public List<Card> getUserCardsForService(String service, Context context)
-	{
+	public List<Card> getUserCardsForService(String service, Context context) {
 		List<Card> cards = new ArrayList<Card>();
 		ArrayList<User> users = getUsersForService(service);
-		for (User user : users)
-		{
+		for (User user : users) {
 			CustomCard card = new CustomCard(context);
 			card.setUser(user);
 			cards.add(card);
@@ -158,26 +142,26 @@ public class Service {
 		return cards;
 	}
 
-	public String[] getMainCategories()
-	{
+	public String[] getMainCategories() {
 		String request = "?DataType=MainCategories";
 		JSONArray jsonArray = getJsonObjects(request);
 		String[] mainCategories = new String[jsonArray.length()];
 		mainCategories[0] = "My Profile";
-		try
-		{
-			for (int i = 1; i < jsonArray.length() + 1; i++)
-			{
+		try {
+			for (int i = 1; i < jsonArray.length() + 1; i++) {
 				JSONObject json;
 				json = jsonArray.getJSONObject(i);
 				mainCategories[i] = json.getString("Name");
 
 			}
-		} catch (JSONException e)
-		{
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		return mainCategories;
+
+	}
+
+	public void getUserFromId(int Id) {
 
 	}
 
