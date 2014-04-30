@@ -33,8 +33,8 @@ public class Service {
 	public static final String TAG_NAME = "Name";
 	public static final String TAG_EMAIL = "Email";
 	// URL
-	public static final String URL = "http://192.168.1.93:44748/AndroidCategoriesHandler.ashx";
-	public static final String URL_TEST = "https://prod.api.pvp.net/api/lol/eune/v1.4/summoner/by-name/jap0?api_key=215c4a93-6152-4e55-9e72-e434cd41dcbd";
+	public static final String URL_CATEGORY = "http://192.168.1.93:44748/AndroidCategoriesHandler.ashx";
+	public static final String URL_USER = "http://192.168.1.93:44748/AndroidUserHandler.ashx";
 
 	private static Service service = null;
 
@@ -49,19 +49,15 @@ public class Service {
 	{
 	}
 
-	public JSONArray getJsonObjects(String request)
+	public JSONArray getJsonObjects(String url, String request)
 	{
-		String url_select = URL + request;
-		Log.w("WWWWWWWWWWWW", url_select + "QQ");
+		String url_select = url + request;
 		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
 
 		InputStream inputStream = null;
 		try
 		{
-			// Set up HTTP post
 
-			// HttpClient is more then less deprecated. Need to change to
-			// URLConnection
 			HttpClient httpClient = new DefaultHttpClient();
 
 			HttpPost httpPost = new HttpPost(url_select);
@@ -125,8 +121,7 @@ public class Service {
 	public ArrayList<User> getUsersForService(String service)
 	{
 		ArrayList<User> users = new ArrayList<User>();
-
-		JSONArray jsonArray = getJsonObjects(service);
+		JSONArray jsonArray = getJsonObjects(URL_USER, service);
 		User u = null;
 
 		try
@@ -161,7 +156,7 @@ public class Service {
 	public String[] getMainCategories()
 	{
 		String request = "?DataType=MainCategories";
-		JSONArray jsonArray = getJsonObjects(request);
+		JSONArray jsonArray = getJsonObjects(URL_CATEGORY, request);
 		String[] mainCategories = new String[jsonArray.length()];
 		mainCategories[0] = "My Profile";
 		try
