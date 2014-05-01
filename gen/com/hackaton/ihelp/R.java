@@ -195,19 +195,19 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int undobar_divider=0x7f020038;
     }
     public static final class id {
-        public static final int action_example=0x7f0b0026;
-        public static final int action_settings=0x7f0b0025;
+        public static final int action_example=0x7f0b0027;
+        public static final int action_settings=0x7f0b0026;
         public static final int card_content_expand_layout=0x7f0b000e;
-        public static final int card_expand_inner_simple_title=0x7f0b001e;
+        public static final int card_expand_inner_simple_title=0x7f0b001f;
         public static final int card_header_button_expand=0x7f0b0006;
         public static final int card_header_button_frame=0x7f0b0004;
         public static final int card_header_button_other=0x7f0b0007;
         public static final int card_header_button_overflow=0x7f0b0005;
         public static final int card_header_inner_frame=0x7f0b0003;
-        public static final int card_header_inner_simple_title=0x7f0b001f;
+        public static final int card_header_inner_simple_title=0x7f0b0020;
         public static final int card_header_layout=0x7f0b000d;
         public static final int card_main_content_layout=0x7f0b000a;
-        public static final int card_main_inner_simple_title=0x7f0b0020;
+        public static final int card_main_inner_simple_title=0x7f0b0021;
         public static final int card_main_layout=0x7f0b000c;
         public static final int card_overlap=0x7f0b000f;
         public static final int card_shadow_layout=0x7f0b000b;
@@ -221,10 +221,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int container=0x7f0b0001;
         public static final int drawer_layout=0x7f0b0000;
         public static final int imageView1=0x7f0b0019;
-        public static final int list_cardId=0x7f0b0021;
-        public static final int list_card_undobar=0x7f0b0022;
-        public static final int list_card_undobar_button=0x7f0b0024;
-        public static final int list_card_undobar_message=0x7f0b0023;
+        public static final int listView1=0x7f0b001e;
+        public static final int list_cardId=0x7f0b0022;
+        public static final int list_card_undobar=0x7f0b0023;
+        public static final int list_card_undobar_button=0x7f0b0025;
+        public static final int list_card_undobar_message=0x7f0b0024;
         public static final int myList=0x7f0b0018;
         public static final int navigation_drawer=0x7f0b0002;
         public static final int ratingBar=0x7f0b001c;

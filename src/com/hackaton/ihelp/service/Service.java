@@ -41,6 +41,8 @@ public class Service {
 			+ "/AndroidCategoriesHandler.ashx";
 	public static final String URL_USER = "http://" + IP
 			+ "/AndroidUserHandler.ashx";
+	public static final String URL_SERVICES = "http://" + IP
+			+ "/AndroidDataHandler.ashx";
 
 	private static Service service = null;
 
@@ -55,6 +57,8 @@ public class Service {
 
 	public JSONArray getJsonObjects(String url, String request) {
 		String url_select = url + request;
+
+		Log.w("url   ", url_select);
 
 		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
 
@@ -169,6 +173,17 @@ public class Service {
 		return u;
 	}
 
+	public Services JSONToService(JSONObject json) throws JSONException {
+		Services s = new Services();
+		s.setUserId(json.getInt("UserId"));
+		s.setServiceName(json.getString("ServiceName"));
+		s.setServiceDescription(json.getString("ServiceDescription"));
+		s.setUserRating(json.getInt("UserRating"));
+		// TO DO date s.setDateAdded("DateAdded")
+		s.setUserPostalCode(json.getInt("UserPostalCode"));
+		return s;
+	}
+
 	public ArrayList<User> getUsersForService(int serviceID) {
 		ArrayList<User> users = new ArrayList<User>();
 		JSONArray jsonArray = getJsonObjects(URL_USER, serviceID + "");
@@ -262,6 +277,26 @@ public class Service {
 		}
 		return u;
 
+	}
+
+	public ArrayList<Services> getServicessForUser(int userID) {
+		ArrayList<Services> services = new ArrayList<Services>();
+
+		JSONArray jsonArray = getJsonObjects(URL_SERVICES,
+				"?DataType=GetServicesByUserId&UserId=" + userID);
+		Services u = null;
+
+		try {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject json = jsonArray.getJSONObject(i);
+				u = JSONToService(json);
+				services.add(u);
+
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return services;
 	}
 
 }
