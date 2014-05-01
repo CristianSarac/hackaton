@@ -1,5 +1,7 @@
 package com.hackaton.ihelp;
 
+import java.util.ArrayList;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -21,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.hackaton.ihelp.service.Category;
 import com.hackaton.ihelp.service.Service;
 
 /**
@@ -61,6 +64,10 @@ public class NavigationDrawerFragment extends Fragment {
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
 	private Service service = Service.getInstace();
+	private ArrayList<Category> mainCategoriesList = new ArrayList<Category>();
+	private ArrayList<Category> categories = new ArrayList<Category>();
+	private boolean isMainCategory = true;
+	private Category mainCategory = null;
 
 	public NavigationDrawerFragment()
 	{
@@ -104,17 +111,22 @@ public class NavigationDrawerFragment extends Fragment {
 	{
 		mDrawerListView = (ListView) inflater.inflate(
 				R.layout.fragment_navigation_drawer, container, false);
-		mDrawerListView
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id)
-					{
-						selectItem(position);
-					}
-				});
 
-		String[] mainCategories = service.getMainCategories();
+		DrawerItemClickListener drawerItemClickListener = new DrawerItemClickListener();
+		mDrawerListView.setOnItemClickListener(drawerItemClickListener);
+		/*
+		 * new AdapterView.OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> parent, View view,
+		 * int position, long id) { // if selected = my profile if (position ==
+		 * 0) { selectItem(position); return; } else {
+		 * loadContentList(position); } } });
+		 */
+
+		mainCategoriesList = service.getCategories(null);
+		String[] mainCategories = new String[mainCategoriesList.size()];
+		for (int i = 0; i < mainCategoriesList.size(); i++)
+			mainCategories[i] = mainCategoriesList.get(i).getName();
 
 		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(),
@@ -341,5 +353,89 @@ public class NavigationDrawerFragment extends Fragment {
 		 * Called when an item in the navigation drawer is selected.
 		 */
 		void onNavigationDrawerItemSelected(int position);
+	}
+
+	// method called to fill menu
+	public void loadContentList(int position)
+	{
+
+		// TODO setTitle(mPlanetTitles[position]);
+
+		mainCategory = mainCategoriesList.get(position);
+		categories = service.getCategories(mainCategory);
+		mainCategory.setSubCategories(categories);
+		String[] content = new String[categories.size()];
+		for (int i = 0; i < categories.size(); i++)
+			content[i] = categories.get(i).getName();
+
+		// Change ListView's adapter
+		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
+				.getThemedContext(),
+				android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, content));
+		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+		// Change OnItemClickListener // CityItemClickListener is defined below
+		mDrawerListView.setOnItemClickListener(new CategoryItemClickListener());
+	}
+
+	private class CategoryItemClickListener implements
+			ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id)
+		{
+			// This is the method that was being called on planet click
+			// in the original example. Implementation of it is up to you
+			if (position == categories.size() - 1)
+			{
+				mainCategoriesList = service.getCategories(null);
+				String[] mainCategories = new String[mainCategoriesList.size()];
+				for (int i = 0; i < mainCategoriesList.size(); i++)
+					mainCategories[i] = mainCategoriesList.get(i).getName();
+
+				mDrawerListView.setAdapter(new ArrayAdapter<String>(
+						getActionBar().getThemedContext(),
+						android.R.layout.simple_list_item_activated_1,
+						android.R.id.text1, mainCategories));
+
+				DrawerItemClickListener drawerItemClickListener = new DrawerItemClickListener();
+				mDrawerListView.setOnItemClickListener(drawerItemClickListener);
+				isMainCategory = true;
+				return;
+
+			}
+			selectItem(position);
+		}
+	}
+
+	/* The click listener for ListView in the navigation drawer */
+	private class DrawerItemClickListener implements
+			ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position,
+				long id)
+		{
+			// if selected = my profile
+			if (position == 0)
+			{
+				selectItem(position);
+				return;
+			} else
+			{
+				isMainCategory = false;
+				loadContentList(position);
+			}
+		}
+	}
+
+	public boolean isMainCategory()
+	{
+		return isMainCategory;
+	}
+
+	public Category getMainCategory()
+	{
+		return mainCategory;
 	}
 }

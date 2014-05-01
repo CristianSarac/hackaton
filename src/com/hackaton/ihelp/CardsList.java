@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hackaton.ihelp.service.Category;
 import com.hackaton.ihelp.service.Service;
 
 public class CardsList extends BaseFragment {
@@ -25,13 +27,20 @@ public class CardsList extends BaseFragment {
 		super.onCreate(savedInstanceState);
 		CardListView c = new CardListView(getActivity());
 
-		int position = getArguments().getInt("position");
-		List<Card> cards = new ArrayList<Card>();
+		// This category only has name and id
+		Category cat = (Category) getArguments().getParcelable("category");
 
-		if (position == 1)
-		{
-			cards = service.getUserCardsForService("", getActivity());
-		}
+		Log.w("IDD", "id:" + cat.getId());
+
+		// set action bar title
+		getActivity().getActionBar().setTitle(cat.getName());
+
+		List<Card> cards = new ArrayList<Card>();
+		// TODO delete this:id=1;
+		int id = 1;
+		// int id= cat.getId();
+		// cards = service.getUserCardsForService(id, getActivity());
+
 		Card card = new CustomCard(getActivity());
 		cards.add(card);
 

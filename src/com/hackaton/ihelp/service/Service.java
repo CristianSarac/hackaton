@@ -32,9 +32,14 @@ public class Service {
 	// JSON Node names
 	public static final String TAG_NAME = "Name";
 	public static final String TAG_EMAIL = "Email";
+	// IP
+	public static final String IP = "192.168.87.113:44748";
+
 	// URL
-	public static final String URL_CATEGORY = "http://192.168.1.93:44748/AndroidCategoriesHandler.ashx";
-	public static final String URL_USER = "http://192.168.1.93:44748/AndroidUserHandler.ashx";
+	public static final String URL_CATEGORY = "http://" + IP
+			+ "/AndroidCategoriesHandler.ashx";
+	public static final String URL_USER = "http://" + IP
+			+ "/AndroidUserHandler.ashx";
 
 	private static Service service = null;
 
@@ -118,10 +123,10 @@ public class Service {
 		return u;
 	}
 
-	public ArrayList<User> getUsersForService(String service)
+	public ArrayList<User> getUsersForService(int serviceID)
 	{
 		ArrayList<User> users = new ArrayList<User>();
-		JSONArray jsonArray = getJsonObjects(URL_USER, service);
+		JSONArray jsonArray = getJsonObjects(URL_USER, serviceID + "");
 		User u = null;
 
 		try
@@ -140,10 +145,10 @@ public class Service {
 		return users;
 	}
 
-	public List<Card> getUserCardsForService(String service, Context context)
+	public List<Card> getUserCardsForService(int serviceID, Context context)
 	{
 		List<Card> cards = new ArrayList<Card>();
-		ArrayList<User> users = getUsersForService(service);
+		ArrayList<User> users = getUsersForService(serviceID);
 		for (User user : users)
 		{
 			CustomCard card = new CustomCard(context);
@@ -153,27 +158,58 @@ public class Service {
 		return cards;
 	}
 
-	public String[] getMainCategories()
+	public ArrayList<Category> getCategories(Category mainCategory)
 	{
-		String request = "?DataType=MainCategories";
-		JSONArray jsonArray = getJsonObjects(URL_CATEGORY, request);
-		String[] mainCategories = new String[jsonArray.length()];
-		mainCategories[0] = "My Profile";
-		try
-		{
-			for (int i = 1; i < jsonArray.length() + 1; i++)
-			{
-				JSONObject json;
-				json = jsonArray.getJSONObject(i);
-				mainCategories[i] = json.getString("Name");
+		ArrayList<Category> categories = new ArrayList<Category>();
+		String request = "";
+		if (mainCategory == null)
+			request = "?DataType=MainCategories";
+		else
+			request = "?DataType=SubCategory&MainCategoryId="
+					+ mainCategory.getId();
 
-			}
-		} catch (JSONException e)
+		JSONArray jsonArray = getJsonObjects(URL_CATEGORY, request);
+		if (mainCategory == null)
 		{
-			e.printStackTrace();
+			Category myProfile = new Category("My Profile", 0, null);
+			categories.add(0, myProfile);
+			try
+			{
+				for (int i = 0; i < jsonArray.length(); i++)
+				{
+					JSONObject json;
+					json = jsonArray.getJSONObject(i);
+					Category c = new Category(json.getString("Name"),
+							json.getInt("Id"), null);
+					categories.add(c);
+				}
+			} catch (JSONException e)
+			{
+				e.printStackTrace();
+			}
+		} else
+		{
+
+			try
+			{
+				for (int i = 0; i < jsonArray.length(); i++)
+				{
+					JSONObject json;
+					json = jsonArray.getJSONObject(i);
+					Category c = new Category(json.getString("Name"),
+							json.getInt("Id"), mainCategory);
+					categories.add(c);
+
+				}
+			} catch (JSONException e)
+			{
+				e.printStackTrace();
+			}
+			Category end = new Category("Back", -1, null);
+			categories.add(end);
 		}
-		return mainCategories;
+
+		return categories;
 
 	}
-
 }
