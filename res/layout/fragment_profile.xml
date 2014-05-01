@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp" >
 
-  	<LinearLayout
-  	    android:layout_width="match_parent"
-    	android:layout_height="wrap_content" 
-    	android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-  		<ImageView
-  		    android:contentDescription="@string/app_name"
-  		    android:id="@+id/imageView1"
-  		    android:layout_width="100dp"
-  		    android:layout_height="100dp"
-  		    android:src="@drawable/ic_launcher" 
-  		    android:scaleType="centerCrop"
-  		    />
-  		<TextView
-  		    android:id="@+id/textView1"
-			android:layout_width="wrap_content"
-  		    android:layout_height="wrap_content"
-  		    android:text="@string/app_name"
-  		    android:textAppearance="?android:attr/textAppearanceLarge" />
-  	    
-  	</LinearLayout>
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher" />
 
-  	<TextView
-  	    android:id="@+id/textView2"
-  	    android:layout_width="wrap_content"
-  	    android:layout_height="wrap_content"
-  	    android:text="@string/app_name"/>
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewCity"
+            android:layout_alignParentTop="true"
+            android:text="name"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-  	<TextView
-  	    android:id="@+id/textView3"
-  	    android:layout_width="wrap_content"
-  	    android:layout_height="wrap_content"
-  	    android:text="@string/app_name" />
+        <TextView
+            android:id="@+id/textViewCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/imageView1"
+           android:text="city"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-  	<RatingBar
-  	    android:id="@+id/ratingBar1"
-  	    style="@style/carddemo_myapps_main_inner_ratingbar"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:stepSize="1.0"/>
-	
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/carddemo_myapps_main_inner_ratingbar"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView1"
+           
+            android:numStars="5"
+           android:rating="3"
+            android:stepSize="1.0" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewName"
+            android:layout_below="@+id/textViewName"
+            android:layout_marginTop="18dp"
+            android:text="email"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </RelativeLayout>
+
 </LinearLayout>

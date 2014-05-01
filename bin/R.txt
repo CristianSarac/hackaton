@@ -150,10 +150,10 @@ int id list_card_undobar_button 0x7f0b0024
 int id list_card_undobar_message 0x7f0b0023
 int id myList 0x7f0b0018
 int id navigation_drawer 0x7f0b0002
-int id ratingBar1 0x7f0b001d
-int id textView1 0x7f0b001a
-int id textView2 0x7f0b001b
-int id textView3 0x7f0b001c
+int id ratingBar 0x7f0b001c
+int id textViewCity 0x7f0b001b
+int id textViewEmail 0x7f0b001d
+int id textViewName 0x7f0b001a
 int id undobar 0x7f0b0012
 int id undobar_button 0x7f0b0014
 int id undobar_message 0x7f0b0013

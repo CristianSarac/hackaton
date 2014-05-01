@@ -33,8 +33,8 @@ public class Service {
 	public static final String TAG_NAME = "Name";
 	public static final String TAG_EMAIL = "Email";
 	// URL
-	public static final String URL = "http://192.168.1.93:44748/AndroidCategoriesHandler.ashx";
-	public static final String URL_TEST = "https://prod.api.pvp.net/api/lol/eune/v1.4/summoner/by-name/jap0?api_key=215c4a93-6152-4e55-9e72-e434cd41dcbd";
+	public static final String URL_CATEGORY = "http://192.168.87.113:44748/AndroidCategoriesHandler.ashx";
+	public static final String URL_USER = "http://192.168.87.113:44748/AndroidUserHandler.ashx";
 
 	private static Service service = null;
 
@@ -47,17 +47,14 @@ public class Service {
 	private Service() {
 	}
 
-	public JSONArray getJsonObjects(String request) {
-		String url_select = URL + request;
-		Log.w("WWWWWWWWWWWW", url_select + "QQ");
+	public JSONArray getJsonObjects(String url, String request) {
+		String url_select = url + request;
+
 		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
 
 		InputStream inputStream = null;
 		try {
-			// Set up HTTP post
 
-			// HttpClient is more then less deprecated. Need to change to
-			// URLConnection
 			HttpClient httpClient = new DefaultHttpClient();
 
 			HttpPost httpPost = new HttpPost(url_select);
@@ -104,6 +101,60 @@ public class Service {
 		return null;
 	}
 
+	public JSONObject getJsonSingleObject(String url, String request) {
+		String url_select = url + request;
+
+		ArrayList<NameValuePair> param = new ArrayList<NameValuePair>();
+
+		InputStream inputStream = null;
+		try {
+
+			HttpClient httpClient = new DefaultHttpClient();
+
+			HttpPost httpPost = new HttpPost(url_select);
+			httpPost.setEntity(new UrlEncodedFormEntity(param));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity httpEntity = httpResponse.getEntity();
+
+			// Read content & Log
+			inputStream = httpEntity.getContent();
+		} catch (UnsupportedEncodingException e1) {
+			Log.e("UnsupportedEncodingException", e1.toString());
+			e1.printStackTrace();
+		} catch (ClientProtocolException e2) {
+			Log.e("ClientProtocolException", e2.toString());
+			e2.printStackTrace();
+		} catch (IllegalStateException e3) {
+			Log.e("IllegalStateException", e3.toString());
+			e3.printStackTrace();
+		} catch (IOException e4) {
+			Log.e("IOException", e4.toString());
+			e4.printStackTrace();
+		}
+		// Convert response to string using String Builder
+		try {
+			BufferedReader bReader = new BufferedReader(new InputStreamReader(
+					inputStream, "iso-8859-1"), 8);
+			StringBuilder sBuilder = new StringBuilder();
+
+			String line = null;
+			while ((line = bReader.readLine()) != null) {
+				sBuilder.append(line + "\n");
+			}
+
+			inputStream.close();
+			String jsonString = sBuilder.toString();
+
+			return new JSONObject(jsonString);
+
+		} catch (Exception e) {
+			Log.e("StringBuilding & BufferedReader", "Error converting result "
+					+ e.toString());
+		}
+
+		return null;
+	}
+
 	public User JSONToUser(JSONObject json) throws JSONException {
 		User u = new User();
 		u.setName(json.getString("Name"));
@@ -114,8 +165,7 @@ public class Service {
 
 	public ArrayList<User> getUsersForService(String service) {
 		ArrayList<User> users = new ArrayList<User>();
-
-		JSONArray jsonArray = getJsonObjects(service);
+		JSONArray jsonArray = getJsonObjects(URL_USER, service);
 		User u = null;
 
 		try {
@@ -144,7 +194,7 @@ public class Service {
 
 	public String[] getMainCategories() {
 		String request = "?DataType=MainCategories";
-		JSONArray jsonArray = getJsonObjects(request);
+		JSONArray jsonArray = getJsonObjects(URL_CATEGORY, request);
 		String[] mainCategories = new String[jsonArray.length()];
 		mainCategories[0] = "My Profile";
 		try {
@@ -161,7 +211,23 @@ public class Service {
 
 	}
 
-	public void getUserFromId(int Id) {
+	public User getUserFromId(int Id) {
+		String request = "?DataType=getUserById&UserId=" + Id;
+		JSONObject json = getJsonSingleObject(URL_USER, request);
+
+		User u = new User();
+		try {
+
+			u.setName(json.getString("Name"));
+			u.setSurName(json.getString("Surname"));
+			u.setEmail(json.getString("Email"));
+			u.setCity(json.getString("City"));
+			u.setRating(json.getInt("Rating"));
+			return u;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return u;
 
 	}
 

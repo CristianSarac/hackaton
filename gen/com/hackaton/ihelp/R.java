@@ -227,10 +227,10 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int list_card_undobar_message=0x7f0b0023;
         public static final int myList=0x7f0b0018;
         public static final int navigation_drawer=0x7f0b0002;
-        public static final int ratingBar1=0x7f0b001d;
-        public static final int textView1=0x7f0b001a;
-        public static final int textView2=0x7f0b001b;
-        public static final int textView3=0x7f0b001c;
+        public static final int ratingBar=0x7f0b001c;
+        public static final int textViewCity=0x7f0b001b;
+        public static final int textViewEmail=0x7f0b001d;
+        public static final int textViewName=0x7f0b001a;
         public static final int undobar=0x7f0b0012;
         public static final int undobar_button=0x7f0b0014;
         public static final int undobar_message=0x7f0b0013;
