@@ -17,13 +17,14 @@ public class User implements Parcelable {
 	private String country;
 	private String fullAddress;
 	private String password;
+	private int id;
 
 	public User() {
 	}
 
 	public User(String name, String surName, String email, int rating,
 			Date dateSigned, int postalCode, String city, String country,
-			String fullAddress, String password) {
+			String fullAddress, String password, int id) {
 		this.name = name;
 		this.surName = surName;
 		this.email = email;
@@ -34,6 +35,7 @@ public class User implements Parcelable {
 		this.country = country;
 		this.fullAddress = fullAddress;
 		this.password = password;
+		this.id = id;
 	}
 
 	public String getName() {
@@ -116,6 +118,14 @@ public class User implements Parcelable {
 		this.password = password;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	// PARCELABLE
 	@Override
 	public int describeContents() {
@@ -135,6 +145,7 @@ public class User implements Parcelable {
 		dest.writeString(country);
 		dest.writeString(fullAddress);
 		dest.writeString(password);
+		dest.writeInt(id);
 
 	}
 
@@ -166,6 +177,7 @@ public class User implements Parcelable {
 		country = in.readString();
 		fullAddress = in.readString();
 		password = in.readString();
+		id = in.readInt();
 
 	}
 

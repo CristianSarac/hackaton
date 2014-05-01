@@ -103,16 +103,16 @@ public final class R {
 	}
 	public static final class id {
 		public static final int card_content_expand_layout = 0x7f0b000e;
-		public static final int card_expand_inner_simple_title = 0x7f0b0021;
+		public static final int card_expand_inner_simple_title = 0x7f0b0022;
 		public static final int card_header_button_expand = 0x7f0b0006;
 		public static final int card_header_button_frame = 0x7f0b0004;
 		public static final int card_header_button_other = 0x7f0b0007;
 		public static final int card_header_button_overflow = 0x7f0b0005;
 		public static final int card_header_inner_frame = 0x7f0b0003;
-		public static final int card_header_inner_simple_title = 0x7f0b0022;
+		public static final int card_header_inner_simple_title = 0x7f0b0023;
 		public static final int card_header_layout = 0x7f0b000d;
 		public static final int card_main_content_layout = 0x7f0b000a;
-		public static final int card_main_inner_simple_title = 0x7f0b0023;
+		public static final int card_main_inner_simple_title = 0x7f0b0024;
 		public static final int card_main_layout = 0x7f0b000c;
 		public static final int card_overlap = 0x7f0b000f;
 		public static final int card_shadow_layout = 0x7f0b000b;
@@ -120,10 +120,10 @@ public final class R {
 		public static final int card_thumb_and_content_layout = 0x7f0b0010;
 		public static final int card_thumbnail_image = 0x7f0b0009;
 		public static final int card_thumbnail_layout = 0x7f0b0011;
-		public static final int list_cardId = 0x7f0b0024;
-		public static final int list_card_undobar = 0x7f0b0025;
-		public static final int list_card_undobar_button = 0x7f0b0027;
-		public static final int list_card_undobar_message = 0x7f0b0026;
+		public static final int list_cardId = 0x7f0b0025;
+		public static final int list_card_undobar = 0x7f0b0026;
+		public static final int list_card_undobar_button = 0x7f0b0028;
+		public static final int list_card_undobar_message = 0x7f0b0027;
 		public static final int undobar = 0x7f0b0012;
 		public static final int undobar_button = 0x7f0b0014;
 		public static final int undobar_message = 0x7f0b0013;

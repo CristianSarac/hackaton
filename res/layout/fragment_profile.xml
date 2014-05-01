@@ -61,6 +61,16 @@
             android:text="email"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:background="#ddd"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ratingBar"
+             >
+        </ListView>
+
     </RelativeLayout>
 
 </LinearLayout>
