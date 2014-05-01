@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hackaton.ihelp.service.Category;
+
 public class MainActivity extends Activity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -53,19 +55,31 @@ public class MainActivity extends Activity implements
 
 		Fragment cardsFragment = null;
 		Bundle args = new Bundle();
-		args.putInt("position", position + 1);
-		switch (position)
-		{
-		case 0:
-			cardsFragment = new ProfileFragment();
-			break;
-		case 1:
-			cardsFragment = new CardsList();
-			break;
-		default:
-			break;
-		}
+		if (mNavigationDrawerFragment != null)
+			if (mNavigationDrawerFragment.isMainCategory())
+			{
+				args.putInt("id", position + 1);
+				switch (position)
+				{
+				case 0:
+					cardsFragment = new ProfileFragment();
+					break;
 
+				default:
+					break;
+				}
+			} else
+			{
+				Category mainCategory = mNavigationDrawerFragment
+						.getMainCategory();
+
+				args.putParcelable("category", mainCategory.getSubCategories()
+						.get(position));
+				cardsFragment = new CardsList();
+				onSectionAttached(mainCategory.getSubCategories().get(position)
+						.getName());
+
+			}
 		if (cardsFragment != null)
 		{
 			cardsFragment.setArguments(args);
@@ -77,21 +91,9 @@ public class MainActivity extends Activity implements
 		}
 	}
 
-	public void onSectionAttached(int number)
+	public void onSectionAttached(String title)
 	{
-		switch (number)
-		{
-		case 1:
-			mTitle = getString(R.string.title_my_profile);
-
-			break;
-		case 2:
-			mTitle = getString(R.string.title_section2);
-			break;
-		case 3:
-			mTitle = getString(R.string.title_section3);
-			break;
-		}
+		mTitle = title;
 
 	}
 
