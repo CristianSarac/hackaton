@@ -22,7 +22,8 @@ public class CardsList extends BaseFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		CardListView c = new CardListView(getActivity());
 
@@ -35,18 +36,14 @@ public class CardsList extends BaseFragment {
 		getActivity().getActionBar().setTitle(cat.getName());
 
 		List<Card> cards = new ArrayList<Card>();
-		// TODO delete this:id=1;
-		// int id = 1;
-		// int id= cat.getId();
-		// cards = service.getUserCardsForService(id, getActivity());
-
-		Card card = new CustomCard(getActivity());
-		cards.add(card);
+		int id = cat.getId();
+		cards = service.getUserCardsForService(id, getActivity());
 
 		CardArrayAdapter mCardAdapter = new CardArrayAdapter(getActivity(),
 				cards);
 
-		if (c != null) {
+		if (c != null)
+		{
 			c.setAdapter(mCardAdapter);
 		}
 
@@ -54,7 +51,8 @@ public class CardsList extends BaseFragment {
 	}
 
 	@Override
-	public int getTitleResourceId() {
+	public int getTitleResourceId()
+	{
 		return R.id.myList;
 	}
 

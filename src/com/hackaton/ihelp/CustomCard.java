@@ -6,16 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.hackaton.ihelp.service.Service;
+import com.hackaton.ihelp.service.Services;
 import com.hackaton.ihelp.service.User;
 
 public class CustomCard extends Card {
 
 	protected TextView mTitle;
-	protected TextView mSecondaryTitle;
+	protected TextView mSecondaryTitle, postal, price, userName;
 	protected RatingBar mRatingBar;
-	private User user;
+	private Services services;
+	private Context context;
 
 	// protected ImageView mImageView;
 
@@ -24,13 +26,20 @@ public class CustomCard extends Card {
 	 * 
 	 * @param context
 	 */
-	public CustomCard(Context context) {
+	public CustomCard(Context context)
+	{
 
 		this(context, R.layout.carddemo_mycard_inner_content);
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setServices(Services services)
+	{
+		this.services = services;
+	}
+
+	public void setContext(Context context)
+	{
+		this.context = context;
 	}
 
 	/**
@@ -38,7 +47,8 @@ public class CustomCard extends Card {
 	 * @param context
 	 * @param innerLayout
 	 */
-	public CustomCard(Context context, int innerLayout) {
+	public CustomCard(Context context, int innerLayout)
+	{
 		super(context, innerLayout);
 		init();
 	}
@@ -46,28 +56,36 @@ public class CustomCard extends Card {
 	/**
 	 * Init
 	 */
-	private void init() {
+	private void init()
+	{
 
 		// No Header
 
 		// Set a OnClickListener listener
 		setOnClickListener(new OnCardClickListener() {
 			@Override
-			public void onClick(Card card, View view) {
-				Toast.makeText(getContext(), "You clicked the card",
-						Toast.LENGTH_LONG).show();
+			public void onClick(Card card, View view)
+			{
+
 			}
 		});
 	}
 
 	@Override
-	public void setupInnerViewElements(ViewGroup parent, View view) {
+	public void setupInnerViewElements(ViewGroup parent, View view)
+	{
 
 		// Retrieve elements
 		mTitle = (TextView) parent
 				.findViewById(R.id.carddemo_myapps_main_inner_title);
 		mSecondaryTitle = (TextView) parent
 				.findViewById(R.id.carddemo_myapps_main_inner_secondaryTitle);
+		postal = (TextView) parent
+				.findViewById(R.id.carddemo_myapps_main_inner_postal);
+		price = (TextView) parent
+				.findViewById(R.id.carddemo_myapps_main_inner_price);
+		userName = (TextView) parent
+				.findViewById(R.id.carddemo_myapps_main_inner_user_name);
 		mRatingBar = (RatingBar) parent
 				.findViewById(R.id.carddemo_myapps_main_inner_ratingBar);
 		// mImageView = (ImageView)
@@ -75,15 +93,24 @@ public class CustomCard extends Card {
 
 		if (mTitle != null)
 
-			mTitle.setText("First title");
+			mTitle.setText(services.getServiceName());
 
 		if (mSecondaryTitle != null)
-			mSecondaryTitle.setText("Secondary title");
+			mSecondaryTitle.setText(services.getServiceDescription());
+		if (postal != null)
+			postal.setText("Postal Code: " + services.getUserPostalCode());
+		if (price != null)
+			price.setText("Price: " + services.getPrice());
 
 		if (mRatingBar != null)
 			mRatingBar.setNumStars(5);
 		mRatingBar.setMax(5);
-		mRatingBar.setRating(4);
-
+		mRatingBar.setRating(services.getUserRating());
+		if (userName != null)
+		{
+			Service s = Service.getInstace();
+			User u = s.getUserFromId(services.getUserId());
+			userName.setText("By: " + u.getName());
+		}
 	}
 }
