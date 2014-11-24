@@ -1,4 +1,4 @@
 hackaton
 ========
 
-Android App for Hackaton 
+Android App for Ebay / Mjolner  Hackaton 
